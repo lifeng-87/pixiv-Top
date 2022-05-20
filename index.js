@@ -1,4 +1,3 @@
-require("dotenv").config();
 const axios = require("axios");
 const cheerio = require("cheerio");
 const fs = require("fs");
@@ -15,12 +14,12 @@ async function getTop(){
     })
 
     const $ = cheerio.load(res.data);
-    for(let i=1;i<=10;i++){
+    for(let i=1;i<=30;i++){
         const imgUrl = $(`section#${i} a div img`).attr("data-src")
         const originImgUrl = imgUrl.replace(/\/c\/\d\d\dx\d\d\d\/img-master(.*?)_master1200/, '/img-original$1')
         const newImgUrl = await checkImgUrl(originImgUrl);
         getImg(newImgUrl);
-        //await delay(500);
+        await delay(500);
     }
 }
 
